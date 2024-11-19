@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | AngularWebGL</title>
+    <style>
+      /* Ensure that html, body, and canvas fill the entire screen */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      /* Style the Unity canvas */
+      #unity-canvas {
+        width: 100%;
+        height: 100%;
+        display: block; /* Prevent canvas from having extra space around it */
+        position: fixed; /* Make sure the canvas is fixed in place */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas"></canvas>
+    <script src="Build/Build.loader.js"></script>
+    <script>
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
+
+        document.body.style.textAlign = "left";
+      }
+
+      // Create Unity instance
+      var unityInstance = null;
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/Build.data",
+        frameworkUrl: "Build/Build.framework.js",
+        codeUrl: "Build/Build.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "AngularWebGL",
+        productVersion: "0.1",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      }).then(function(instance) {
+        unityInstance = instance;
+
+        // Listen for messages from the parent page
+        window.addEventListener('message', function(event) {
+          // Optional: Check the event origin to ensure it’s from a trusted source
+          // if (event.origin !== window.origin) return;
+
+          // Parse the incoming message
+          const message = event.data;
+
+          // Check if the message type is 'callUnityFunction' (this can be customized to your needs)
+          if (message.type === 'callUnityFunction') {
+            const data = message.data; // Get the data sent from the parent
+
+            // Use SendMessage to call the function in Unity
+            if (unityInstance) {
+              unityInstance.SendMessage('WebGLCommunication', 'TriggerUnityFunction', data);
+            }
+          }
+        });
+      }).catch(function(error) {
+        console.error("Error loading Unity WebGL instance:", error);
+      });
+    </script>
+  </body>
+</html>

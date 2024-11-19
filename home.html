@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebGL Project Home | AngularWebGL</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <style>
+      /* Ensure the body and html elements take up the full viewport */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      /* Make the iframe fill the entire screen */
+      iframe {
+        border: none; /* Remove the iframe border */
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <button onclick="callUnityFunction()">Disable Cube Function</button>
+
+    <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/WebglBuild/index.html"></iframe>
+
+    <script>
+      function callUnityFunction() {
+        // Get the iframe element
+        const iframe = document.getElementById('unityIframe');
+
+        // Send a message to the iframe
+        iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: 'someData' }, '*');
+      }
+    </script>
+
+    <footer>
+      <p>&copy; 2024 WebGL Project by Sebuloan</p>
+    </footer>
+
+  </body>
+</html>
