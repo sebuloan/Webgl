@@ -16,6 +16,17 @@
         width: 100%;
       }
 
+      /* Style for the blue button */
+      #unityButton {
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        margin: 20px;
+      }
+
       /* Make the iframe fill the entire screen */
       iframe {
         border: none; /* Remove the iframe border */
@@ -26,18 +37,42 @@
   </head>
   <body>
 
-    <button onclick="callUnityFunction()">Disable Cube Function</button>
+    <!-- The button that will change color -->
+    <button id="unityButton" onclick="callUnityFunction()">Disable Cube Function</button>
 
-    <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/index.html"></iframe>
+    <!-- The Unity WebGL build embedded as an iframe -->
+    <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/WebglBuild/index.html"></iframe>
 
     <script>
+      // Function to send message to Unity when the HTML button is clicked
       function callUnityFunction() {
-        // Get the iframe element
         const iframe = document.getElementById('unityIframe');
-
-        // Send a message to the iframe
         iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: 'someData' }, '*');
       }
+
+      // Function to change the button color to yellow (called from Unity)
+      function changeButtonColorToYellow() {
+        const button = document.getElementById('unityButton');
+        button.style.backgroundColor = 'yellow'; // Change the button color to yellow
+      }
+
+      // Listen for messages from Unity
+      window.addEventListener('message', function(event) {
+        const message = event.data;
+
+        if (message.type === 'callUnityFunction') {
+          const data = message.data;
+          const iframe = document.getElementById('unityIframe');
+          
+          // Call Unity's method using SendMessage when needed (optional)
+          iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: data }, '*');
+        }
+
+        // Handle Unity's request to change the button color
+        if (message.type === 'changeButtonColor') {
+          changeButtonColorToYellow(); // Call the function that changes the button color
+        }
+      });
     </script>
 
     <footer>
@@ -45,4 +80,4 @@
     </footer>
 
   </body>
-</html> 
+</html>
