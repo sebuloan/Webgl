@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WebGL Project Home | AngularWebGL</title>
+    <title>WebGL Project Home</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
     <style>
       /* Ensure the body and html elements take up the full viewport */
       html, body {
@@ -41,7 +40,7 @@
     <button id="unityButton" onclick="callUnityFunction()">Disable Cube Function</button>
 
     <!-- The Unity WebGL build embedded as an iframe -->
-    <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/index.html"></iframe>
+    <iframe id="unityIframe" src="path/to/your/UnityWebGLBuild/index.html"></iframe>
 
     <script>
       // Function to send message to Unity when the HTML button is clicked
@@ -61,11 +60,8 @@
         const message = event.data;
 
         if (message.type === 'callUnityFunction') {
-          const data = message.data;
-          const iframe = document.getElementById('unityIframe');
-          
-          // Call Unity's method using SendMessage when needed (optional)
-          iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: data }, '*');
+          // Optionally, you can call a Unity function from JavaScript here
+          console.log("Received message from Unity:", message);
         }
 
         // Handle Unity's request to change the button color
