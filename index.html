@@ -55,7 +55,11 @@
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       }).then(function(instance) {
         unityInstance = instance;
-
+        function sendMessageToParent(messageType) {
+    // Send a message to the parent window (home.html)
+          console.log("Message came from unity to index html");
+    window.parent.postMessage({ type: messageType }, '*');
+  }
         // Listen for messages from the parent page
         window.addEventListener('message', function(event) {
           // Optional: Check the event origin to ensure it’s from a trusted source
