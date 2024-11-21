@@ -26,8 +26,15 @@
     <canvas id="unity-canvas"></canvas>
     <script src="Build/Build.loader.js"></script>
     <script>
+      // Make sure this function is exposed to Unity as early as possible
+      function sendMessageToParent(messageType) {
+        // Send a message to the parent window (home.html)
+        console.log("Message came from Unity to index.html:", messageType);
+        window.parent.postMessage({ type: messageType }, '*');
+      }
+
+      // Device-specific adjustments (for mobile devices)
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
@@ -41,7 +48,7 @@
         document.body.style.textAlign = "left";
       }
 
-      // Create Unity instance
+      // Initialize Unity WebGL instance
       var unityInstance = null;
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/Build.data",
@@ -51,24 +58,15 @@
         companyName: "DefaultCompany",
         productName: "AngularWebGL",
         productVersion: "0.1",
-        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       }).then(function(instance) {
         unityInstance = instance;
-        function sendMessageToParent(messageType) {
-    // Send a message to the parent window (home.html)
-          console.log("Message came from unity to index html");
-    window.parent.postMessage({ type: messageType }, '*');
-  }
-        // Listen for messages from the parent page
-        window.addEventListener('message', function(event) {
-          // Optional: Check the event origin to ensure it’s from a trusted source
-          // if (event.origin !== window.origin) return;
 
+        // Listen for messages from the parent page (home.html)
+        window.addEventListener('message', function(event) {
           // Parse the incoming message
           const message = event.data;
 
-          // Check if the message type is 'callUnityFunction' (this can be customized to your needs)
+          // Check if the message type is 'callUnityFunction' (this can be customized)
           if (message.type === 'callUnityFunction') {
             const data = message.data; // Get the data sent from the parent
 
