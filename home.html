@@ -60,17 +60,9 @@
       window.addEventListener('message', function(event) {
         const message = event.data;
 
-        // Log the received message for debugging
-        console.log("Received message from Unity:", message);
-
-        // Check if the message type is 'callUnityFunction' (this can be customized to your needs)
-        if (message.type === 'callUnityFunction') {
-          // Optionally, you can call a Unity function from JavaScript here
-          console.log("Received message from Unity:", message);
-        }
-
         // Handle Unity's request to change the button color
         if (message.type === 'changeButtonColor') {
+           console.log("Received message from Unity:", message);
           // Call the function that changes the button color
           changeButtonColorToYellow();
         }
