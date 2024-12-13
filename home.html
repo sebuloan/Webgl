@@ -52,14 +52,6 @@
         const iframe = document.getElementById('unityIframe');
         iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: 'someData' }, '*');
       }
-
-      // Function to change the button color to yellow (called from Unity)
-      function changeButtonColorToYellow() {
-        console.log("Inside html function");
-        const button = document.getElementById('unityButton');
-        button.style.backgroundColor = 'yellow'; // Change the button color to yellow
-      }
-
       
       // Function to increase the count in the HTML page
       function increaseCountInHtml() {
