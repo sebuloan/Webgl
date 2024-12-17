@@ -65,7 +65,7 @@
         const message = event.data;
 
         // Handle Unity's request to change the button color
-        if (message.type === 'changeHtmlText') {
+        if (message.type === 'UnityReady') {
           console.log("Received message from Unity:", message);
           // Call the function that changes the button color
           increaseCountInHtml();
