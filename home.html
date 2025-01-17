@@ -24,8 +24,6 @@
         border: none;
         cursor: pointer;
         margin: 20px;
-
-       
       }
 
       /* Make the iframe fill the entire screen */
@@ -60,15 +58,28 @@
         countDiv.innerText = currentCount + 1;
       }
 
+      // Function to disable the Unity button
+      function disableUnityButton() {
+        const unityButton = document.getElementById('unityButton');
+        unityButton.disabled = true;
+      }
+
+      // Function to enable the Unity button
+      function enableUnityButton() {
+        const unityButton = document.getElementById('unityButton');
+        unityButton.disabled = false;
+      }
+
       // Listen for messages from Unity
       window.addEventListener('message', function(event) {
         const message = event.data;
 
-        // Handle Unity's request to change the button color
+        // Handle Unity's request to change the button color and disable the button
         if (message.type === 'UnityReady') {
           console.log("Unity is ready to start:", message);
-          // Call the function that changes the button color
-          increaseCountInHtml();
+          disableUnityButton(); // Disable the button when Unity is ready
+          // Optionally, call other functions or logic here
+          increaseCountInHtml(); // Update count display if needed
         }
       });
     </script>
