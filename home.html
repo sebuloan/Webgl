@@ -15,17 +15,6 @@
         width: 100%;
       }
 
-      /* Style for the blue button */
-      #unityButton {
-        background-color: blue;
-        color: white;
-        padding: 10px 20px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        margin: 20px;
-      }
-
       /* Make the iframe fill the entire screen */
       iframe {
         border: none; /* Remove the iframe border */
@@ -35,52 +24,37 @@
     </style>
   </head>
   <body>
-
-    <!-- The button that will change color -->
-    <button id="unityButton" onclick="callUnityFunction()">Increase Count</button>
-
-    <div id="countDisplay" style="font-size: 24px; margin-top: 20px;">0</div>
-
     <!-- The Unity WebGL build embedded as an iframe -->
     <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/index.html"></iframe>
 
     <script>
-      // Function to send message to Unity when the HTML button is clicked
-      function callUnityFunction() {
-        const iframe = document.getElementById('unityIframe');
-        iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: 'someData' }, '*');
-      }
-      
-      // Function to increase the count in the HTML page
-      function increaseCountInHtml() {
-        const countDiv = document.getElementById('countDisplay');
-        let currentCount = parseInt(countDiv.innerText, 10) || 0;
-        countDiv.innerText = currentCount + 1;
-      }
+      // Define the updated JSON structure
+      const jsonData = {
+        components: [
+          { id: 1, name: "Component A", type: "Sensor" }
+        ],
+        connectors: [
+          { id: 1, from: "Component A", to: "Component B", type: "Wired" }
+        ],
+        systems: [
+          { id: 1, name: "System X", components: [1], connectors: [1] }
+        ]
+      };
 
-      // Function to change the button color to green
-      function changeButtonColorToGreen() {
-        const unityButton = document.getElementById('unityButton');
-        unityButton.style.backgroundColor = 'green'; // Change the background color to green
-      }
+      // Function to send message to Unity when the page loads
+      window.onload = function() {
+        const iframe = document.getElementById('unityIframe');
+        iframe.contentWindow.postMessage({ type: 'initializeSystem', data: jsonData }, '*');
+      };
 
       // Listen for messages from Unity
       window.addEventListener('message', function(event) {
         const message = event.data;
-
-        // Handle Unity's request to change the button color to green
+        // Handle Unity's request to change button color or any other logic
         if (message.type === 'UnityReady') {
           console.log("Unity is ready to start:", message);
-          changeButtonColorToGreen(); // Change button color to green when Unity is ready
-          // Optionally, call other functions or logic here
-          increaseCountInHtml(); // Update count display if needed
         }
       });
     </script>
-
-    <footer>
-      <p>&copy; 2024 WebGL Project by Sebuloan</p>
-    </footer>
-
   </body>
 </html>
