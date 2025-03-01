@@ -26,29 +26,6 @@
     <canvas id="unity-canvas"></canvas>
     <script src="Build/Build.loader.js"></script>
     <script>
-      // Make sure this function is exposed to Unity as early as possible
-      function sendMessageToParent(messageType) {
-        // Send a message to the parent window (home.html)
-        console.log("Message came from Unity to index.html:", messageType);
-        window.parent.postMessage({ type: messageType }, '*');
-      }
-
-      // Device-specific adjustments (for mobile devices)
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-
-        var canvas = document.querySelector("#unity-canvas");
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        canvas.style.position = "fixed";
-
-        document.body.style.textAlign = "left";
-      }
-
-      // Initialize Unity WebGL instance
       var unityInstance = null;
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/Build.data",
@@ -61,19 +38,14 @@
       }).then(function(instance) {
         unityInstance = instance;
 
-        // Listen for messages from the parent page (home.html)
+        // Listen for messages from the parent page
         window.addEventListener('message', function(event) {
-          // Parse the incoming message
           const message = event.data;
 
-          // Check if the message type is 'callUnityFunction' (this can be customized)
-          if (message.type === 'callUnityFunction') {
-            const data = message.data; // Get the data sent from the parent
-
-            // Use SendMessage to call the function in Unity
-            if (unityInstance) {
-              unityInstance.SendMessage('WebGLCommunication', 'IncreaseCount', data);
-            }
+          // Check for initializeSystem message
+          if (message.type === 'initializeSystem') {
+            // Send the JSON to Unity using SendMessage
+            unityInstance.SendMessage('WebGLCommunication', 'InitializeSystem', JSON.stringify(message.data));
           }
         });
       }).catch(function(error) {
