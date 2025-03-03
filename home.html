@@ -56,7 +56,7 @@
       function callUnityFunction() {
         const iframe = document.getElementById('unityIframe');
         console.log("Sending data to Unity:", jsonData);
-        iframe.contentWindow.postMessage({ type: 'InitializeSystem', data: jsonData }, '*');
+        iframe.contentWindow.postMessage({ type: 'callUnityFunction', data }, '*');
       }
 
       window.addEventListener('message', function(event) {
