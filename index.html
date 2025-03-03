@@ -72,7 +72,7 @@
 
             // Use SendMessage to call the function in Unity
             if (unityInstance) {
-              unityInstance.SendMessage('WebGLCommunication', 'InitializeSystem', data);
+              unityInstance.SendMessage('WebGLCommunication', 'InitializeSystem', data : jsonData);
             }
           }
         });
