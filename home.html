@@ -46,10 +46,21 @@
 
     <script>
   
-      // Function to send message to Unity when the HTML button is clicked
+      // JSON data to be serialized and sent to Unity
+      const jsonData = {
+        component: "A",
+        connector: 1,
+        system: "car frame"
+      };
+
+      // Function to send serialized JSON data to Unity when the HTML button is clicked
       function callUnityFunction() {
         const iframe = document.getElementById('unityIframe');
-        iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: 'someData' }, '*');
+        const messageData = {
+          type: 'callUnityFunction',
+          data: JSON.stringify(jsonData) // Serialize the JSON data into a string
+        };
+        iframe.contentWindow.postMessage(messageData, '*');
       }
       
       // Function to increase the count in the HTML page
