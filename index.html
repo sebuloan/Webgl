@@ -76,11 +76,7 @@
             }
           }
         });
-            // Function to send JSON data to Unity when the page loads
-      window.onload = function() {
-        const iframe = document.getElementById('unityIframe');
-        iframe.contentWindow.postMessage({ type: 'initializeSystem', data: jsonData }, '*');
-      };
+
       }).catch(function(error) {
         console.error("Error loading Unity WebGL instance:", error);
       });
