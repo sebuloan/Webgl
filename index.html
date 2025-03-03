@@ -61,20 +61,22 @@
       }).then(function(instance) {
         unityInstance = instance;
 
-        // Listen for messages from the parent page (home.html)
-        window.addEventListener('message', function(event) {
-          // Parse the incoming message
-          const message = event.data;
+      window.addEventListener('message', function(event) {
+    const message = event.data;
 
-          // Check if the message type is 'callUnityFunction' (this can be customized)
-          if (message.type === 'callUnityFunction') {
-            const data = message.data; // Get the data sent from the parent
+    // Check if the message type is 'callUnityFunction'
+    if (message.type === 'callUnityFunction') {
+        const data = message.data; // This is the serialized JSON string
 
-            // Use SendMessage to call the function in Unity
-            if (unityInstance) {
-              unityInstance.SendMessage('WebGLCommunication', 'InitializeSystem', data);
-            }
-          }
+        // Parse the JSON data into a JavaScript object
+        const parsedData = JSON.parse(data);
+
+        // Assuming 'unityInstance' is your Unity WebGL instance
+        if (unityInstance) {
+            // Send the parsed data to Unity's 'InitializeSystem' function
+            unityInstance.SendMessage('WebGLCommunication', 'InitializeSystem', JSON.stringify(parsedData));
+        }
+    }
         });
       }).catch(function(error) {
         console.error("Error loading Unity WebGL instance:", error);
