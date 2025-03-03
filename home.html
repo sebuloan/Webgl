@@ -45,17 +45,7 @@
     <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/index.html"></iframe>
 
     <script>
-          const jsonDataFromHtml = {
-        components: [
-          { id: 1, name: "Component A", type: "Sensor" }
-        ],
-        connectors: [
-          { id: 1, from: "Component A", to: "Component B", type: "Wired" }
-        ],
-        systems: [
-          { id: 1, name: "System X", components: [1], connectors: [1] }
-        ]
-      }; 
+  
       // Function to send message to Unity when the HTML button is clicked
       function callUnityFunction() {
         const iframe = document.getElementById('unityIframe');
