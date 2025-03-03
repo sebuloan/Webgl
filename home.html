@@ -62,6 +62,16 @@
         };
         iframe.contentWindow.postMessage(messageData, '*');
       }
+
+       function receiveDataFromUnity(jsonResponse) {
+        // Deserialize the JSON response from Unity
+        const responseData = JSON.parse(jsonResponse);
+
+        // Display the received data in the HTML page
+        const responseDisplay = document.getElementById('responseDisplay');
+        responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
+      }
+
       
       // Function to increase the count in the HTML page
       function increaseCountInHtml() {
