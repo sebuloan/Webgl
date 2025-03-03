@@ -61,7 +61,7 @@
       // Function to send message to Unity when the HTML button is clicked
       function callUnityFunction() {
         const iframe = document.getElementById('unityIframe');
-        iframe.contentWindow.postMessage({ type: 'callUnityFunction', data: 'someData' }, '*');
+        iframe.contentWindow.postMessage({ type: 'InitializeSystem', data: 'jsonData' }, '*');
       }
       
       // Function to increase the count in the HTML page
@@ -86,7 +86,8 @@
           console.log("Unity is ready to start:", message);
           changeButtonColorToGreen(); // Change button color to green when Unity is ready
           // Optionally, call other functions or logic here
-          increaseCountInHtml(); // Update count display if needed
+          increaseCountInHtml();
+          callUnityFunction();// Update count display if needed
         }
       });
 
