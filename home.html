@@ -61,7 +61,7 @@
       // Function to send message to Unity when the HTML button is clicked
       function callUnityFunction() {
         const iframe = document.getElementById('unityIframe');
-        iframe.contentWindow.postMessage({ type: 'InitializeSystem', data: 'jsonData' }, '*');
+        iframe.contentWindow.postMessage({ type: 'InitializeSystem', data: jsonData }, '*'); // Send jsonData directly
       }
       
       // Function to increase the count in the HTML page
@@ -90,8 +90,6 @@
           callUnityFunction();// Update count display if needed
         }
       });
-
-  
     </script>
 
     <footer>
