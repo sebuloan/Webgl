@@ -43,7 +43,7 @@
     // Example: Access individual properties
     console.log(responseData.status);    // "success"
     console.log(responseData.message);   // "Data processed successfully in Unity"
-    console.log(responseData.timestamp); // The timestamp string
+    console.log(responseData.dataofjson); // The timestamp string
     
     // Example: Send data to the parent window
     window.parent.postMessage({ type: 'UnityData', data: responseData }, '*');
