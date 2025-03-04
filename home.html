@@ -64,15 +64,19 @@
         };
         iframe.contentWindow.postMessage(messageData, '*');
       }
-
-       function receiveDataFromUnity(jsonResponse) {
-        // Deserialize the JSON response from Unity
-        const responseData = JSON.parse(jsonResponse);
-
-        // Display the received data in the HTML page
+function receiveDataFromUnity(jsonResponse) {
+    console.log("Received response from Unity:", jsonResponse);  // Debugging line
+    const responseData = JSON.parse(jsonResponse);
+    
+    // Check if the response contains the expected data
+    if (responseData.message && responseData.status && responseData.timestamp) {
         const responseDisplay = document.getElementById('responseDisplay');
         responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
-      }
+    } else {
+        console.error('Received invalid data from Unity:', responseData);
+    }
+}
+
 
       
       // Function to increase the count in the HTML page
