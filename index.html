@@ -33,7 +33,7 @@
         window.parent.postMessage({ type: messageType }, '*');
       }
 
-     function receiveDataFromUnity(jsonResponse) {
+     function receiveDataFromUnity(messageType) {
     // Deserialize the JSON response from Unity
     const responseData = JSON.parse(jsonResponse);
 
