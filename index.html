@@ -34,14 +34,10 @@
       }
 
      function receiveDataFromUnity(messageType) {
-    // Deserialize the JSON response from Unity
-    const responseData = JSON.parse(jsonResponse);
 
-    // Assuming the responseData contains a `type` field, use it
-    const messageType = responseData.type;
 
     // Send a message to the parent window (home.html)
-    console.log("Message came from Unity to index.html:", messageType);
+    console.log("Message came from Unity", messageType);
     window.parent.postMessage({ type: messageType }, '*');
 }
 
