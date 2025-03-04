@@ -72,6 +72,11 @@
     // Display the received data in the HTML page
     const responseDisplay = document.getElementById('responseDisplay');
     responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
+           
+    // Example: Access individual properties
+    console.log(responseData.status);    // "success"
+    console.log(responseData.message);   // "Data processed successfully in Unity"
+    console.log(responseData.timestamp); // The timestamp string
 }
 
       
