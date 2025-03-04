@@ -65,14 +65,11 @@
         iframe.contentWindow.postMessage(messageData, '*');
       }
 
-     function receiveDataFromUnity(jsonResponse) {
-    // Deserialize the JSON response from Unity
-    const responseData = JSON.parse(jsonResponse);
-
+  function receiveDataFromUnity(responseData) {
     // Display the received data in the HTML page
     const responseDisplay = document.getElementById('responseDisplay');
     responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
-           
+
     // Example: Access individual properties
     console.log(responseData.status);    // "success"
     console.log(responseData.message);   // "Data processed successfully in Unity"
@@ -105,11 +102,14 @@
           increaseCountInHtml(); // Update count display if needed
         }
 
-         if (message.type === 'UnityData') {
+         if (event.origin === "YOUR_CHILD_WINDOW_ORIGIN") { // Replace with the actual origin of your child window
+        // Handle the message type from Unity
+        if (message.type === 'UnityData') {
             console.log("Received data from Unity:", message.data);
-            // Call the function to display the data from Unity
-            receiveDataFromUnity(JSON.stringify(message.data)); // Make sure to pass the JSON string
+            // Pass the data directly to the function that handles displaying it
+            receiveDataFromUnity(message.data);  // No need to stringify it here
         }
+    }
       });
     </script>
 
