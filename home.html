@@ -65,7 +65,7 @@
         iframe.contentWindow.postMessage(messageData, '*');
       }
 
-     function receiveDataFromUnity(jsonResponse) {
+     function receiveDataFromChild(jsonResponse) {
     // Deserialize the JSON response from Unity
     const responseData = JSON.parse(jsonResponse);
 
@@ -103,7 +103,7 @@
          if (message.type === 'UnityData') {
             console.log("Received data from Unity:", message.data);
             // Call the function to display the data from Unity
-            receiveDataFromUnity(JSON.stringify(message.data)); // Make sure to pass the JSON string
+            receiveDataFromChild(JSON.stringify(message.data)); // Make sure to pass the JSON string
         }
       });
     </script>
