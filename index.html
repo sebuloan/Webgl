@@ -33,11 +33,17 @@
         window.parent.postMessage({ type: messageType }, '*');
       }
 
-       function receiveDataFromUnity(jsonResponse) {
-        // Send a message to the parent window (home.html)
-        console.log("Message came from Unity to index.html:", jsonResponse);
-        window.parent.postMessage({ type: jsonResponse }, '*');
-      }
+    function receiveDataFromUnity(jsonResponse) {
+    // Send a message to the parent window (home.html)
+    console.log("Message came from Unity to index.html:", jsonResponse);
+    
+    // Parse the response if it's a string (ensure the format is what you expect)
+    const responseData = JSON.parse(jsonResponse); // Ensure the data is parsed into a usable object
+
+    // Send the parsed object and message type to the parent window
+    window.parent.postMessage({ type: 'UnityData', data: responseData }, '*');
+}
+
 
       // Device-specific adjustments (for mobile devices)
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
