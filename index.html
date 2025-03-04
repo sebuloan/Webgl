@@ -33,7 +33,9 @@
         window.parent.postMessage({ type: messageType }, '*');
       }
 
-       function receiveDataFromUnity(messageType) {
+      function receiveDataFromUnity(jsonResponse) {
+        // Deserialize the JSON response from Unity
+        const responseData = JSON.parse(jsonResponse);
         // Send a message to the parent window (home.html)
         console.log("Message came from Unity to index.html:", messageType);
         window.parent.postMessage({ type: messageType }, '*');
