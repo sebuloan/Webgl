@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
@@ -64,7 +64,8 @@
         };
         iframe.contentWindow.postMessage(messageData, '*');
       }
- function receiveDataFromUnity(jsonResponse) {
+
+       function receiveDataFromUnity(jsonResponse) {
         // Deserialize the JSON response from Unity
         const responseData = JSON.parse(jsonResponse);
 
@@ -72,8 +73,6 @@
         const responseDisplay = document.getElementById('responseDisplay');
         responseDisplay.innerText = Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp};
       }
-}
-
 
       
       // Function to increase the count in the HTML page
