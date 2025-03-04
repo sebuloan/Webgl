@@ -33,13 +33,18 @@
         window.parent.postMessage({ type: messageType }, '*');
       }
 
-      function receiveDataFromUnity(jsonResponse) {
-        // Deserialize the JSON response from Unity
-        const responseData = JSON.parse(jsonResponse);
-        // Send a message to the parent window (home.html)
-        console.log("Message came from Unity to index.html:", messageType);
-        window.parent.postMessage({ type: messageType }, '*');
-      }
+     function receiveDataFromUnity(jsonResponse) {
+    // Deserialize the JSON response from Unity
+    const responseData = JSON.parse(jsonResponse);
+
+    // Assuming the responseData contains a `type` field, use it
+    const messageType = responseData.type;
+
+    // Send a message to the parent window (home.html)
+    console.log("Message came from Unity to index.html:", messageType);
+    window.parent.postMessage({ type: messageType }, '*');
+}
+
 
       // Device-specific adjustments (for mobile devices)
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
