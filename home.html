@@ -102,7 +102,6 @@
           increaseCountInHtml(); // Update count display if needed
         }
 
-         if (event.origin === "YOUR_CHILD_WINDOW_ORIGIN") { // Replace with the actual origin of your child window
         // Handle the message type from Unity
         if (message.type === 'UnityData') {
             console.log("Received data from Unity:", message.data);
