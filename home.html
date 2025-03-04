@@ -65,15 +65,13 @@
         iframe.contentWindow.postMessage(messageData, '*');
       }
 
-  function receiveDataFromUnity(responseData) {
+     function receiveDataFromUnity(jsonResponse) {
+    // Deserialize the JSON response from Unity
+    const responseData = JSON.parse(jsonResponse);
+
     // Display the received data in the HTML page
     const responseDisplay = document.getElementById('responseDisplay');
     responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
-
-    // Example: Access individual properties
-    console.log(responseData.status);    // "success"
-    console.log(responseData.message);   // "Data processed successfully in Unity"
-    console.log(responseData.timestamp); // The timestamp string
 }
 
       
@@ -102,15 +100,11 @@
           increaseCountInHtml(); // Update count display if needed
         }
 
-        if (event.origin === "https://sebuloan.github.io/Webgl/index.html") { // Replace with the actual origin of your child window
-        // Handle the message type from Unity
-        if (message.type === 'UnityData') {
+         if (message.type === 'UnityData') {
             console.log("Received data from Unity:", message.data);
-            // Pass the data directly to the function that handles displaying it
-            receiveDataFromUnity(message.data);  // No need to stringify it here
+            // Call the function to display the data from Unity
+            receiveDataFromUnity(JSON.stringify(message.data)); // Make sure to pass the JSON string
         }
-    }
-    }
       });
     </script>
 
