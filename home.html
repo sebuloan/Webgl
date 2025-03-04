@@ -103,7 +103,8 @@
          if (message.type === 'UnityData') {
             console.log("Received data from Unity:", message.data);
             // Call the function to display the data from Unity
-            receiveDataFromUnity(JSON.stringify(message.data)); // Make sure to pass the JSON string
+            receiveDataFromUnity(JSON.stringify(message.data));
+           receiveDataFromUnity();// Make sure to pass the JSON string
         }
       });
     </script>
