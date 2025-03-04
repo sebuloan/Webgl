@@ -40,13 +40,12 @@
 
     <div id="countDisplay" style="font-size: 24px; margin-top: 20px;">0</div>
 
-     <div id="responseDisplay" style="font-size: 18px; margin-top: 20px;">Waiting for Unity response...</div>
+    <div id="responseDisplay" style="font-size: 18px; margin-top: 20px;">Waiting for Unity response...</div>
 
     <!-- The Unity WebGL build embedded as an iframe -->
     <iframe id="unityIframe" src="https://sebuloan.github.io/Webgl/index.html"></iframe>
 
     <script>
-  
       // JSON data to be serialized and sent to Unity
       const jsonData = {
         component: "A",
@@ -64,16 +63,16 @@
         iframe.contentWindow.postMessage(messageData, '*');
       }
 
-       function receiveDataFromUnity(jsonResponse) {
+      // Function to handle receiving data from Unity
+      function receiveDataFromUnity(jsonResponse) {
         // Deserialize the JSON response from Unity
         const responseData = JSON.parse(jsonResponse);
 
         // Display the received data in the HTML page
         const responseDisplay = document.getElementById('responseDisplay');
-        responseDisplay.innerText = Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp};
+        responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
       }
 
-      
       // Function to increase the count in the HTML page
       function increaseCountInHtml() {
         const countDiv = document.getElementById('countDisplay');
@@ -97,9 +96,14 @@
           changeButtonColorToGreen(); // Change button color to green when Unity is ready
           // Optionally, call other functions or logic here
           increaseCountInHtml(); 
-          receiveDataFromUnity();// Update count display if needed
+          receiveDataFromUnity(message.data); // Ensure you pass the response data here
         }
       });
+
+      // Ensure that the iframe has loaded before performing any actions
+      window.onload = function() {
+        console.log("Page and iframe are fully loaded.");
+      };
     </script>
 
     <footer>
