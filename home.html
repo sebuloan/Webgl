@@ -93,11 +93,12 @@
         const message = event.data;
 
         // Handle Unity's request to change the button color to green
-        if (message.type === 'changeButtonColor') {
+        if (message.type === 'jsonResponse') {
           console.log("Unity is ready to start:", message);
           changeButtonColorToGreen(); // Change button color to green when Unity is ready
           // Optionally, call other functions or logic here
-          increaseCountInHtml(); // Update count display if needed
+          increaseCountInHtml(); 
+          receiveDataFromUnity();// Update count display if needed
         }
       });
     </script>
