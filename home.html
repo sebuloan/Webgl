@@ -65,14 +65,14 @@
         iframe.contentWindow.postMessage(messageData, '*');
       }
 
-       function receiveDataFromUnity(jsonResponse) {
-        // Deserialize the JSON response from Unity
-        const responseData = JSON.parse(jsonResponse);
+     function receiveDataFromUnity(jsonResponse) {
+    // Deserialize the JSON response from Unity
+    const responseData = JSON.parse(jsonResponse);
 
-        // Display the received data in the HTML page
-        const responseDisplay = document.getElementById('responseDisplay');
-        responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
-      }
+    // Display the received data in the HTML page
+    const responseDisplay = document.getElementById('responseDisplay');
+    responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.timestamp}`;
+}
 
       
       // Function to increase the count in the HTML page
@@ -98,6 +98,12 @@
           changeButtonColorToGreen(); // Change button color to green when Unity is ready
           // Optionally, call other functions or logic here
           increaseCountInHtml(); // Update count display if needed
+        }
+
+         if (message.type === 'UnityData') {
+            console.log("Received data from Unity:", message.data);
+            // Call the function to display the data from Unity
+            receiveDataFromUnity(JSON.stringify(message.data)); // Make sure to pass the JSON string
         }
       });
     </script>
