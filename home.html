@@ -70,15 +70,10 @@
     const responseData = JSON.parse(jsonResponse);
     // Display the received data in the HTML page
     const responseDisplay = document.getElementById('responseDisplay');
-    responseDisplay.innerHTML = `
-  Component: ${responseData.component}<br>
-  Connector: ${responseData.connector}<br>
-  System: ${responseData.system}
-`;
-   console.log(responseData.component);    // "success"
-    console.log(responseData.connector);   // "Data processed successfully in Unity"
-    console.log(responseData.system); // The timestamp string
-    
+    responseDisplay.innerHTML = 
+      `Component: ${responseData.component}<br>
+       Connector: ${responseData.connector}<br>
+       System: ${responseData.system}`;
 }
 
       // Listen for messages from Unity
