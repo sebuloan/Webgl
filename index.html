@@ -39,11 +39,7 @@
     
     // Now responseData is an object, and you can access its properties
     console.log("Message came from Unity to index.html:", responseData);
-    
-    // Example: Access individual properties
-    console.log(responseData.status);    // "success"
-    console.log(responseData.message);   // "Data processed successfully in Unity"
-    console.log(responseData.dataofjson); // The timestamp string
+     // The timestamp string
     
     // Example: Send data to the parent window
     window.parent.postMessage({ type: 'UnityData', data: responseData }, '*');
