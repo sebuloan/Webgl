@@ -71,7 +71,12 @@
 
     // Display the received data in the HTML page
     const responseDisplay = document.getElementById('responseDisplay');
-    responseDisplay.innerText = `( Component: ${responseData.component}) (Connector: ${responseData.connector}) (System: ${responseData.system})`;
+    responseDisplay.innerHTML = `
+  Component: ${responseData.component}<br>
+  Connector: ${responseData.connector}<br>
+  System: ${responseData.system}
+`;
+
 
          console.log(responseData.component);    // "success"
     console.log(responseData.connector);   // "Data processed successfully in Unity"
