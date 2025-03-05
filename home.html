@@ -71,11 +71,11 @@
 
     // Display the received data in the HTML page
     const responseDisplay = document.getElementById('responseDisplay');
-    responseDisplay.innerText = `Unity Response: ${responseData.message} (Status: ${responseData.status}) at ${responseData.dataofjson}`;
+    responseDisplay.innerText = `Unity Response: ${responseData.component} (Status: ${responseData.connector}) at ${responseData.system}`;
 
-         console.log(responseData.status);    // "success"
-    console.log(responseData.message);   // "Data processed successfully in Unity"
-    console.log(responseData.dataofjson); // The timestamp string
+         console.log(responseData.component);    // "success"
+    console.log(responseData.connector);   // "Data processed successfully in Unity"
+    console.log(responseData.system); // The timestamp string
     
 }
 
